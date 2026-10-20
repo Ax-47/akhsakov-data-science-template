@@ -31,6 +31,7 @@ uv run ds-train
 ├── models/           # โมเดลที่เทรนแล้ว
 ├── notebooks/        # Jupyter notebooks สำหรับ EDA / ทดลอง
 ├── reports/figures/  # กราฟและรายงาน
+├── scripts/          # สคริปต์ช่วยงาน (เช่น rename_project.py)
 ├── src/ds_project/   # โค้ดหลักของโปรเจกต์
 │   ├── config.py     # paths และค่าตั้งต้น
 │   ├── data.py       # โหลดและแบ่งข้อมูล
@@ -61,9 +62,16 @@ uv run ds-train
 ## ใช้เทมเพลตนี้กับโปรเจกต์ใหม่
 
 1. กด **Use this template** บน GitHub หรือ clone repo นี้
-2. เปลี่ยนชื่อแพ็กเกจ `ds_project` → ชื่อของคุณ ใน `src/`, `pyproject.toml` (`name`, `[project.scripts]`, `packages`) และ `tests/`
-3. รัน `uv lock` เพื่อสร้าง lockfile ใหม่
-4. คัดลอก `.env.example` เป็น `.env` แล้วใส่ค่าที่ต้องใช้
+2. เปลี่ยนชื่อโปรเจกต์ด้วยสคริปต์ (แก้ชื่อใน `pyproject.toml`, `src/`, `tests/`, README และสร้าง `uv.lock` ใหม่ให้อัตโนมัติ)
+
+   ```bash
+   uv run python scripts/rename_project.py churn-model --dry-run  # ดูก่อนว่าจะแก้อะไร
+   uv run python scripts/rename_project.py churn-model
+   uv sync
+   ```
+
+   ผลลัพธ์: แพ็กเกจ `churn_model`, ชื่อ distribution `churn-model`, คำสั่ง `churn-model-train`
+3. คัดลอก `.env.example` เป็น `.env` แล้วใส่ค่าที่ต้องใช้
 
 ## Quality checks
 
