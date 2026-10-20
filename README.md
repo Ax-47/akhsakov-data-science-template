@@ -31,12 +31,12 @@ uv run ds-train
 ├── models/           # โมเดลที่เทรนแล้ว
 ├── notebooks/        # Jupyter notebooks สำหรับ EDA / ทดลอง
 ├── reports/figures/  # กราฟและรายงาน
-├── scripts/          # สคริปต์ช่วยงาน (เช่น rename_project.py)
 ├── src/ds_project/   # โค้ดหลักของโปรเจกต์
 │   ├── config.py     # paths และค่าตั้งต้น
 │   ├── data.py       # โหลดและแบ่งข้อมูล
 │   ├── features.py   # feature engineering pipeline
-│   └── train.py      # เทรนและบันทึกโมเดล
+│   ├── train.py      # เทรนและบันทึกโมเดล
+│   └── rename.py     # คำสั่ง ds-rename (ใช้ครั้งเดียว แล้วลบตัวเอง)
 ├── tests/            # unit tests (pytest)
 ├── pyproject.toml    # metadata, dependencies, การตั้งค่า ruff/pytest
 ├── uv.lock           # lockfile (commit ไฟล์นี้ด้วย)
@@ -62,11 +62,11 @@ uv run ds-train
 ## ใช้เทมเพลตนี้กับโปรเจกต์ใหม่
 
 1. กด **Use this template** บน GitHub หรือ clone repo นี้
-2. เปลี่ยนชื่อโปรเจกต์ด้วยสคริปต์ (แก้ชื่อใน `pyproject.toml`, `src/`, `tests/`, README และสร้าง `uv.lock` ใหม่ให้อัตโนมัติ)
+2. เปลี่ยนชื่อโปรเจกต์ด้วยคำสั่ง `ds-rename` (แก้ชื่อใน `pyproject.toml`, `src/`, `tests/`, README และสร้าง `uv.lock` ใหม่ให้อัตโนมัติ เสร็จแล้วคำสั่งนี้จะลบตัวเองออก)
 
    ```bash
-   uv run python scripts/rename_project.py churn-model --dry-run  # ดูก่อนว่าจะแก้อะไร
-   uv run python scripts/rename_project.py churn-model
+   uv run ds-rename churn-model --dry-run  # ดูก่อนว่าจะแก้อะไร
+   uv run ds-rename churn-model
    uv sync
    ```
 
