@@ -29,8 +29,8 @@ notebook = [
 default-groups = ["dev", "notebook"]
 
 [project.scripts]
-ds-train = "ds_project.train:main"
-ds-rename = "ds_project.rename:main"
+train = "ds_project.train:main"
+rename = "ds_project.rename:main"
 
 [build-system]
 requires = ["hatchling"]

@@ -15,7 +15,7 @@ uv sync
 uv run pre-commit install
 
 # 4. ลองเทรนโมเดลตัวอย่าง
-uv run ds-train
+uv run train
 ```
 
 หรือใช้ `make install`, `make test`, `make train`, `make notebook`
@@ -36,7 +36,7 @@ uv run ds-train
 │   ├── data.py       # โหลดและแบ่งข้อมูล
 │   ├── features.py   # feature engineering pipeline
 │   ├── train.py      # เทรนและบันทึกโมเดล
-│   └── rename.py     # คำสั่ง ds-rename (ใช้ครั้งเดียว แล้วลบตัวเอง)
+│   └── rename.py     # คำสั่ง rename (ใช้ครั้งเดียว แล้วลบตัวเอง)
 ├── tests/            # unit tests (pytest)
 ├── pyproject.toml    # metadata, dependencies, การตั้งค่า ruff/pytest
 ├── uv.lock           # lockfile (commit ไฟล์นี้ด้วย)
@@ -62,15 +62,15 @@ uv run ds-train
 ## ใช้เทมเพลตนี้กับโปรเจกต์ใหม่
 
 1. กด **Use this template** บน GitHub หรือ clone repo นี้
-2. เปลี่ยนชื่อโปรเจกต์ด้วยคำสั่ง `ds-rename` (แก้ชื่อใน `pyproject.toml`, `src/`, `tests/`, README และสร้าง `uv.lock` ใหม่ให้อัตโนมัติ เสร็จแล้วคำสั่งนี้จะลบตัวเองออก)
+2. เปลี่ยนชื่อโปรเจกต์ด้วยคำสั่ง `rename` (แก้ชื่อใน `pyproject.toml`, `src/`, `tests/`, README และสร้าง `uv.lock` ใหม่ให้อัตโนมัติ เสร็จแล้วคำสั่งนี้จะลบตัวเองออก)
 
    ```bash
-   uv run ds-rename churn-model --dry-run  # ดูก่อนว่าจะแก้อะไร
-   uv run ds-rename churn-model
+   uv run rename churn-model --dry-run  # ดูก่อนว่าจะแก้อะไร
+   uv run rename churn-model
    uv sync
    ```
 
-   ผลลัพธ์: แพ็กเกจ `churn_model`, ชื่อ distribution `churn-model`, คำสั่ง `churn-model-train`
+   ผลลัพธ์: แพ็กเกจ `churn_model`, ชื่อ distribution `churn-model`, คำสั่ง `uv run train` ใช้ชื่อเดิม
 3. คัดลอก `.env.example` เป็น `.env` แล้วใส่ค่าที่ต้องใช้
 
 ## Quality checks

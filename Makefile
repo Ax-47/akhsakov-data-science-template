@@ -16,7 +16,7 @@ test:
 	uv run pytest
 
 train:
-	uv run ds-train
+	uv run train
 
 notebook:
 	uv run jupyter lab

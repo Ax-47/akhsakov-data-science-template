@@ -1,13 +1,13 @@
 """Rename the template package to a new project name.
 
 Usage:
-    uv run ds-rename my-project --dry-run
-    uv run ds-rename my-project
+    uv run rename my-project --dry-run
+    uv run rename my-project
 
-Replaces ``ds-project`` (distribution name), ``ds_project`` (import name) and
-``ds-train`` (CLI command) across the project, moves ``src/ds_project`` to
-``src/<new_name>`` and regenerates ``uv.lock``. This command is one-shot: it
-removes itself (module and ``ds-rename`` entry point) after a successful rename.
+Replaces ``ds-project`` (distribution name) and ``ds_project`` (import name)
+across the project, moves ``src/ds_project`` to ``src/<new_name>`` and
+regenerates ``uv.lock``. This command is one-shot: it removes itself (module
+and ``rename`` entry point) after a successful rename.
 """
 
 import argparse
@@ -20,8 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OLD_DIST = "ds-project"
 OLD_PACKAGE = "ds_project"
-OLD_SCRIPT = "ds-train"
-RENAME_ENTRY_RE = re.compile(r"^ds-rename = .*\n", re.MULTILINE)
+RENAME_ENTRY_RE = re.compile(r"^rename = .*\n", re.MULTILINE)
 
 TARGETS = ["pyproject.toml", "README.md", "Makefile", "src", "tests", "notebooks"]
 SUFFIXES = {".py", ".toml", ".md", ".ipynb", ".cfg", ".yml", ".yaml", ""}
@@ -51,8 +50,7 @@ def main() -> None:
 
     dist = name.replace("_", "-")
     package = name.replace("-", "_")
-    script = f"{dist}-train"
-    replacements = [(OLD_DIST, dist), (OLD_PACKAGE, package), (OLD_SCRIPT, script)]
+    replacements = [(OLD_DIST, dist), (OLD_PACKAGE, package)]
 
     old_dir = ROOT / "src" / OLD_PACKAGE
     if not old_dir.is_dir():
@@ -61,7 +59,7 @@ def main() -> None:
     if new_dir.exists():
         sys.exit(f"{new_dir.relative_to(ROOT)} already exists.")
 
-    print(f"Renaming: {OLD_DIST} -> {dist}, {OLD_PACKAGE} -> {package}, {OLD_SCRIPT} -> {script}")
+    print(f"Renaming: {OLD_DIST} -> {dist}, {OLD_PACKAGE} -> {package}")
 
     for file in iter_files():
         if file == Path(__file__).resolve():
@@ -78,7 +76,7 @@ def main() -> None:
                 file.write_text(new_text, encoding="utf-8")
 
     print(f"  move   {old_dir.relative_to(ROOT)} -> {new_dir.relative_to(ROOT)}")
-    print(f"  remove src/{package}/rename.py and the ds-rename command")
+    print(f"  remove src/{package}/rename.py and the rename command")
     if args.dry_run:
         return
     old_dir.rename(new_dir)
